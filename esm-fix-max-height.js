@@ -2,31 +2,39 @@
 // @name         ESM Fix Max Height
 // @namespace    http://greasemonkey.net/
 // @version      1.8
-// @description  Remove max-height from specified elements
+// @description  Remove max-height from ESM grids.
 // @author       JSC
 // @include      
 // @grant        none
 // ==/UserScript==
 
-(function () {
+(() => {
     'use strict';
 
-    const selectors = ['.admin-div-scroll', '.css-grid', '#admin-env-servers'];
+    const ADMIN_DIV_SCROLL = '.admin-div-scroll';
+    const CSS_GRID = '.css-grid';
+    const ADMIN_ENV_SERVERS = '#admin-env-servers';
 
-    function removeMaxHeight(selector) {
+    const selectors = [ADMIN_DIV_SCROLL, CSS_GRID, ADMIN_ENV_SERVERS];
+
+    const removeMaxHeight = (selector) => {
         document.querySelectorAll(selector).forEach(el => {
             el.style.setProperty('max-height', 'none', 'important');
         });
-    }
+    };
 
-    function applyFixes() {
+    const applyFixes = () => {
         selectors.forEach(removeMaxHeight);
-    }
+    };
 
-    const observer = new MutationObserver(() => {
-        console.log('Applying ESM Fix ...');
-        applyFixes();
+    applyFixes();
+
+    const observer = new MutationObserver(applyFixes);
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
     });
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
 
 })();
