@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ESM Fix Max Height
 // @namespace    http://greasemonkey.net/
-// @version      1.6
+// @version      1.7
 // @description  Remove max-height from .admin-div-scroll and .css-grid
 // @author       JSC
 // @include      
@@ -23,7 +23,7 @@
         });
     }
 
-    const selectors = ['.admin-div-scroll', '.css-grid'];
+    const selectors = ['.admin-div-scroll', '.css-grid', '#admin-env-servers'];
 
     function applyFixes() {
         selectors.forEach(removeMaxHeight);
