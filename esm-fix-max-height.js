@@ -11,19 +11,13 @@
 (function() {
     'use strict';
 
-    const style = document.createElement('style');
-    style.textContent = `
-        .admin-div-scroll, .css-grid { max-height: none !important; }
-    `;
-    document.head.appendChild(style);
-
+    const selectors = ['.admin-div-scroll', '.css-grid', '#admin-env-servers'];
+    
     function removeMaxHeight(selector) {
         document.querySelectorAll(selector).forEach(el => {
             el.style.setProperty('max-height', 'none', 'important');
         });
     }
-
-    const selectors = ['.admin-div-scroll', '.css-grid', '#admin-env-servers'];
 
     function applyFixes() {
         selectors.forEach(removeMaxHeight);
@@ -35,4 +29,3 @@
     observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
 
 })();
-
